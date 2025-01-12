@@ -1,25 +1,25 @@
 import pika
+import sys
 
 
 def main():
-    # Connect to queue & get chanel
     connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
     channel = connection.channel()
 
-    # Create a channel for our messages
-    channel.queue_declare(queue="hello")
+    channel.queue_declare(queue="task_queue", durable=True)
 
-    # Publish a message to the exchange
-    msg = "Hello, world!"
+    msg = " ".join(sys.argv[1:]) or "Hello World!"
     channel.basic_publish(
         exchange="",
-        routing_key="hello",
-        body=msg
+        routing_key="task_queue",
+        body=msg,
+        properties=pika.BasicProperties(
+            delivery_mode=pika.DeliveryMode.Persistent
+        )
     )
 
     print(" [x] Sent '{msg}'")
 
-    # Finally, close the connection
     connection.close()
 
 
