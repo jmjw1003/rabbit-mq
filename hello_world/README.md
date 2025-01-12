@@ -1,8 +1,6 @@
-# Rabbit MQ: Hello, world!
+# Hello, world!
 
 Simple files to demonstrate sending & receiving messages using Rabbit Message Queue.
-
-Note: Assumption is that you already have RabbitMQ set up and running in prior to executing the scripts.
 
 ## Instructions
 - Open a split terminal
